@@ -1,0 +1,333 @@
+#content{
+	margin-top: 71px;
+}
+#part1{
+	position: relative;
+	background: url("../images/campus/bg1.jpg") center center/cover;
+}
+#part1 .title{
+	width: 280px;
+	height: 120px;
+	padding: 15% 0 0 25%;
+	color: #fff;
+}
+#part1 .title .p1{
+	font-size: 44px;
+}
+#part1 .title .p2{
+	float: right;
+	line-height: 40px;
+	font-size: 18px;
+}
+#part1 .bot{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100px;
+	background: rgba(255,255,255,.3);
+	line-height: 100px;
+	font-size: 18px;
+	color: #fff;
+	text-align: center;
+}
+.part .btn{
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 46px;
+	height: 46px;
+	margin-left: -23px;
+	margin-top: -23px;
+	background: url("../images/campus/a_d.png");
+	cursor: pointer;
+}
+/*start com bg*/
+#content .bg{
+	width: 100%;
+	height: 430px;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+#content .bg1{
+	background-image: url("../images/campus/bg2.jpg");
+}
+#content .bg2{
+	background-image: url("../images/campus/bg3.jpg");
+}
+#content .bg3{
+	background-image: url("../images/campus/bg4.jpg");
+}
+#content .bg4{
+	background-image: url("../images/campus/bg5.jpg");
+}
+#content .bg5{
+	background-image: url("../images/campus/bg6.jpg");
+}
+/*end com bg*/
+/*start part2*/
+.part2, #part3{
+	position: relative;
+	width: 100%;
+	height: 530px;
+	background: #f0f2f5;
+}
+.part2 .wrap{
+	position: relative;
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto;
+}
+.part2 .left{
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 300px;
+	height: 150px;
+	margin-top: -75px;
+	color: #0080ba;
+}
+.part2 .left .p1{
+	font-size: 40px;
+}
+.part2 .left .p2,#part .left .p3{
+	font-size: 16px;
+	line-height: 30px;
+}
+.part2 .right{
+	position: absolute;
+	overflow: hidden;
+	right: 0;
+	width: 530px;
+	height: 100%;
+}
+.part2 .right .p1,.part2 .right .p2{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: rotate(0deg) translate(0,-50%);
+}
+.part2 .right .p1 img,.part2 .right .p2 img{
+	display: block;
+}
+.part2 .right .p2 {
+	right: 33px;
+	transform-origin: top center;
+	animation: round 20s linear infinite;
+}
+@keyframes round{
+	from{
+		transform: rotate(0deg) translate(0,-50%);
+	}
+	to{
+		transform: rotate(360deg) translate(0,-50%);
+	}
+}
+.part2 .btn,#part3 .btn{
+	top: auto;
+	bottom: -23px;
+}
+/*end part2*/
+/*strat part3*/
+#part3 .p3-wrap{
+	width: 980px;
+	margin: 0 auto;
+}
+#part3 .p3-wrap .first{
+	float: right;
+	width: 237px;
+	height: 125px;
+	margin-top: 203px;
+	font-size: 18px;
+	color: #0080ba;
+}
+#part3 .p3-wrap .first .p1{
+	font-size: 40px;
+}
+#part3 .p3-wrap .first .p2,#part3 .p3-wrap .first .p3{
+    line-height: 30px;
+}
+#part3 .p3-wrap .second{
+	float: left;
+	position: relative;
+	width: 324px;
+	height: 324px;
+	margin-top: 103px;
+}
+#part3 .p3-wrap .second ul li{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url("../images/campus/m5.png");
+	background-size: 100% auto;
+	display: none;
+}
+#part3 .p3-wrap .second ul li.l1{
+    background-position: 0 0;
+    /*//display: block;*/
+}
+#part3 .p3-wrap .second ul li.l2{
+    background-position: 0 -100%;
+}
+#part3 .p3-wrap .second ul li.l3{
+    background-position: 0 -200%;
+}
+#part3 .p3-wrap .second ul li.l4{
+    background-position: 0 -300%;
+}
+#part3 .p3-wrap .second ul li.l5{
+    background-position: 0 -400%;
+}
+#part3 .p3-wrap .second ul li.l6{
+    background-position: 0 -500%;
+}
+#part3 .p3-wrap .second ul li.l7{
+    background-position: 0 -600%;
+}
+#part3 .p3-wrap .second ul li.l8{
+    background-position: 0 -700%;
+}
+#part3 .p3-wrap .second ul li.l9{
+    background-position: 0 -800%;
+}
+#part3 .p3-wrap .third{
+	float: left;
+	width: 160px;
+	height: 333px;
+	margin: 98.5px 0 0 100px;
+}
+#part3 .p3-wrap .third ul li{
+	list-style: disc;
+	color: #b6d230;
+	font-size: 24px;
+	line-height: 35px;
+	cursor: pointer;
+}
+#part3 .p3-wrap .third ul li.active span{
+	font-size: 28px;
+}
+#part3 .p3-wrap .third ul li span{
+	color: #0080ba;
+	font-size: 20px;
+	transition: .2s linear;
+}
+/*end part3*/
+/*start part4*/
+#part4 .right .p2 {
+	top: 240px;
+	right: 156px;
+	animation: infinite;
+	
+}
+#part4 .right .p2 img{
+	width: 100%;
+	height: 100%;
+	transform-origin: 25% 65%;
+	animation: round2 20s linear infinite;
+}
+@keyframes round2{
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
+/*endpart4*/
+ #part5{
+	position: relative;
+	width: 100%;
+	height: 530px;
+	background: #f0f2f5;
+}
+#part5 .wrap{
+	position: relative;
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto;
+}
+#part5 .left{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	left: auto;
+	width: 300px;
+	height: 150px;
+	margin-top: -75px;
+	color: #0080ba;
+}
+#part5 .right{
+	position: absolute;
+	overflow: hidden;
+	left: 0;
+	width: 556px;
+	height: 397px;
+	margin-top: 50px;
+	background: url("../images/campus/m9_bg.png") no-repeat 0 0/cover;
+} 
+#part5 .right img{
+	width: 100%;
+	height: 100%;
+}
+#part5 .right .p2{
+	position: absolute;
+	left: 0;
+	width: 400px;
+	height: 397px;
+}
+#part6 .right{
+	width: 668px;
+}
+#part6 .left{
+	width: 200px;
+}
+#part6 .left .p3{
+	display: flex;
+}
+#part6 .left .p3 li{
+	flex: 1;
+	width: 30px;
+	height: auto;
+}
+#part6 .left .p3 li p{
+	font-size: 16px;
+	margin-bottom: 2px;
+}
+/*copy start*/
+#foot{
+	width: 100%;
+	background:radial-gradient(#00adef,rgb(0,123,177));
+}
+#copy{
+    width: 90%;
+    margin: 0 auto;
+    border-top: 1px solid #ccc;
+    color: #fff;
+    text-align: center;
+    line-height: 80px;
+    font-size: 16px;
+}
+#copy span{
+    margin: 0 30px;
+}
+/*end copy*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
