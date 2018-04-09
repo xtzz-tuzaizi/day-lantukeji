@@ -1,0 +1,242 @@
+<!doctype html>
+<html onselsetstart = 'return false '> 
+	<head> 
+		<!--声明当前文档的编码集：utf-8国际编码-->
+		<meta http-equiv='content-type' content='text/html; charset=utf-8' />
+		<title>飞机大战</title> 
+		<meta name='keywords' content='学习'>
+		<meta name='description' content='描述'>
+
+		<!-- css -->
+		<style type='text/css'>
+			*{margin:0; padding:0;}
+			ul{list-style:none;}
+			a{text-decoration:none; color:#666;}
+			body{
+				overflow: hidden;
+				user-select: none;
+				-moz-user-select:-moz-none;
+				-ms-user-select:none;
+			}
+			#box{
+				position: relative;
+				width: 512px;
+                height: 768px;
+				margin: 20px auto;
+				background: url(image/bg_1.jpg);
+			}
+			#map{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			#lever{
+				position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                font-weight: bold;
+                letter-spacing: 5px;
+			}
+			#lever p{
+				width: 250px;
+				height: 40px;
+				background: #fff;
+				margin: 30px auto;
+				line-height: 40px;
+				cursor: pointer;
+			}
+			#lever p:nth-last-of-type(1){
+				color: red;
+			}
+			#lever h1{
+				margin: 150px 0;
+				color: #fff;
+			}
+			#lever.hide{
+				display: none;
+			}
+			#map .plane,#map .biu,#map .enemy{
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body> 
+		<div id="box">
+			<div id="lever">
+				<h1>飞机大战</h1>
+				<p>简单模式</p>
+				<p>中等模式</p>
+				<p>困难模式</p>
+				<p>变态模式</p>
+			</div>
+			<div id="map">
+				<div id="BiuAll"></div>
+			</div>
+		</div>
+		<script>
+			window.requestAnimationFrame = window.requestAnimationFrame || function(fn){ return setTimeout(fn,1000/60)};
+			window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout;
+			//定义全局变量
+			var oBox = document.getElementById('box'),
+				oLever = document.getElementById('lever'),
+				oMap = document.getElementById('map'),
+				oBiuAll = document.getElementById('BiuAll'),
+				allBiu = oBiuAll.children,
+				boxOffsetTop = oBox.offsetTop,
+				boxOffsetLeft = oBox.offsetLeft; 
+			//启动
+			exe ();
+			//初始选择难度界面的点击事件
+			function exe () {
+				var oP = document.getElementsByTagName('p');
+				for (var i = 0; i < oP.length; i++) {
+					(function(i){
+						oP[i].onclick = function(ev){
+							ev = ev || window.event;
+							startGame(i , {
+								x : ev.clientX - boxOffsetLeft,
+								y : ev.clientY - boxOffsetTop
+							})
+						}
+					})(i);
+				}
+			}
+			//开始游戏
+			function startGame( lever , pos){
+				cleanLever();
+				plane(lever , pos);
+				enemy(lever);
+			}
+			//隐藏关卡信息
+			function cleanLever(){
+				oLever.className = 'hide';
+			}
+			//创建我军
+			function plane(lever , pos){
+				//创建我军的图片信息
+				var oImg = new Image();
+				oImg.src = 'image/plane_0.png';
+				oImg.width =  '70';
+				oImg.height = '70';
+				oImg.className = 'plane';
+				oImg.style.left = pos.x - oImg.width/2 +'px';
+				oImg.style.top = pos.y - oImg.width/2 +'px';
+				oMap.appendChild(oImg);
+				//设置边界值
+				var leftMin = - oImg.width/2,
+					leftMax = oMap.clientWidth - oImg.width / 2,
+					topMin = 0,
+					topMax = oMap.clientHeight - oImg.width / 2;
+				//加入mousemove事件
+				document.onmousemove = function(ev){
+					ev = ev || window.event;
+					//获取飞机实时坐标，并限制边界值
+					var left = ev.clientX - boxOffsetLeft - oImg.width/2;
+					var top = ev.clientY - boxOffsetTop -  oImg.height/2;
+					left = Math.min(leftMax,left);
+					left = Math.max(leftMin,left);
+					top = Math.min(topMax,top);
+					top = Math.max(topMin , top);
+					//赋值
+					oImg.style.left = left + 'px';
+					oImg.style.top = top +'px';
+				}
+				//执行子弹发射
+				fire(oImg,lever);
+			};
+			//创建我军子弹
+			function fire(oImg,lever){
+				setInterval(function(){
+					//创建子弹
+					var oBiu = document.createElement('img');
+					oBiu.src = 'image/fire.png';
+					oBiu.width = 30;
+					oBiu.height = 30;
+					oBiu.className = 'biu';
+					oBiu.style.left  = oImg.offsetLeft + oImg.width/2 -oBiu.width/2 + 'px';
+					oBiu.style.top = oImg.offsetTop - oBiu.height + 5  +'px';
+					oMap.appendChild(oBiu);
+					//子弹运动
+					function m (){
+						var top = oBiu.offsetTop - 40;
+						//if(oBiu.parentNode){//如果子弹有父级才执行
+							if (top<-oBiu.height ) {
+								//top = -oBiu.height ;
+								oMap.removeChild(oBiu);
+							} else {
+								oBiu.style.top = top + 'px';
+								for (var i = 0; i < allBiu.length; i++) {
+									var objBiu = allBiu[i];
+									if(coll(oBiu , objBiu )){
+										oMap.removeChild(oBiu); //移除子弹
+										oBiuAll.removeChild(objBiu); //移除敌军
+										return ;//阻断
+									}
+								}
+								requestAnimationFrame(m)
+							}
+						//}
+					}
+					//延迟
+					setTimeout(function(){
+						requestAnimationFrame(m)
+					},50)
+				}, [150,200,200,20][lever])
+			}
+			//创建敌军
+			function enemy(lever){
+				var speed = [5,6,8,10][lever]; //敌军下落速度
+				setInterval(function(){
+					var oEnemy = new Image();
+					oEnemy.src = 'image/enemy_small.png';
+					oEnemy.width = '54';
+					oEnemy.height = '40';
+					oEnemy.className = 'enemy';
+					oEnemy.style.top = -oEnemy.height + 'px';
+					oEnemy.style.left = Math.random()*oMap.clientWidth - oEnemy.width/2 + 'px';
+					oBiuAll.appendChild(oEnemy);
+					//敌军运动
+					function m(){
+						var mTop = oEnemy.offsetTop;
+						mTop += speed;    //向下掉top值是增加的
+						if(oEnemy.parentNode){
+							if (mTop >= oMap.clientHeight ) {
+								oBiuAll.removeChild(oEnemy)
+							} else {
+								oEnemy.style.top = mTop +'px';
+								requestAnimationFrame(m)
+							}
+						}
+					}
+					requestAnimationFrame(m)
+				},[450,300,200,150][lever])
+			}
+			//两个物体碰撞检测
+			function coll(obj1,obj2){
+				var T1 = obj1.offsetTop,
+					B1 = T1 + obj1.clientHeight,
+					L1 = obj1.offsetLeft,
+					R1 = L1 + obj1.clientWidth;
+				var T2 = obj2.offsetTop,
+					B2 = T2 + obj2.clientHeight,
+					L2 = obj2.offsetLeft,
+					R2 = L2 + obj2.clientWidth;
+				return !(B1 < T2 || T1 > B2 || L1 > R2 || R1 < L2);
+				// if (B1 < T2 || T1 > B2 || L1 > R2 || R1 < L2) { //没撞上
+				// 	return false;
+				// } else { //撞上了
+				// 	return true;
+				// }
+
+			}
+
+		</script>
+	</body>
+</html>
+
