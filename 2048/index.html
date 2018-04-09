@@ -1,0 +1,54 @@
+<!doctype html>
+<html> 
+	<head> 
+		<!--声明当前文档的编码集：utf-8国际编码-->
+		<meta http-equiv='content-type' content='text/html; charset=utf-8' />
+		<title>2048</title> 
+		<meta name='keywords' content='学习'>
+		<meta name='description' content='描述'>
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+	<body> 
+		<!-- strat -->
+		<div class="wrap">
+			<!-- top -->
+			<div class="top">
+				<!-- title -->
+				<h3 class="title">2048</h3>
+				<!-- score -->
+				<div class="score-box">
+					<!-- 分数 -->
+					<div class="score">
+						<p>Score</p>
+						<p>0</p>
+					</div>
+					<!-- 最高分 -->
+					<div class="best-score">
+						<p>Best Score</p>
+						<p>0</p>
+					</div>
+				</div>
+			</div>
+			<!-- bottom -->
+			<div class="bottom"></div>
+		</div>
+		<script src="js/index.js"></script>
+		<script>
+			window.onload = function(){
+				var parent = document.querySelector('.bottom'),
+					score = document.querySelectorAll('.score p')[1],
+					bestScore = document.querySelectorAll('.best-score p')[1],
+					wrap = document.querySelector('.wrap');
+
+				_2048.Game.init({
+					parent : parent ,
+					score : score ,
+					bestScore : bestScore,
+					wrap : wrap ,
+					size : 4
+				}).start()
+			}
+		</script>
+	</body>
+</html>
+
